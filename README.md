@@ -97,6 +97,7 @@ The Aviax Music Bot offers a range of commands to enhance your music listening e
 ### 🔄 Updates & Support
 
 Stay updated with the latest features and improvements to Aviax Music Bot:
+Credit: AviaxMusic
 
 <p align="center">
   <a href="https://telegram.me/VpsLelo">
