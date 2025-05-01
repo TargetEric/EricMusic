@@ -15,7 +15,7 @@ from youtubesearchpython.__future__ import VideosSearch, CustomSearch
 from AviaxMusic.utils.database import is_on_off
 from AviaxMusic.utils.formatters import time_to_seconds
 from AviaxMusic import LOGGER
-from config import  KEY
+from config import KEY
 
 def cookie_txt_file():
     cookie_dir = f"{os.getcwd()}/cookies"
@@ -83,7 +83,8 @@ async def API_SONG(vid_id: str):
             async with session.get(song_url) as response:
                 if response.status == 200:
                     data = await response.json()
-                    print(f"API Response: {json.dumps(data, indent=4)}")
+                    # for debugging purposes
+                    # print(f"API Response: {json.dumps(data, indent=4)}")
                     if data.get('status') == 'success':
                         download_url = data['download_link']
                         if not download_url:
