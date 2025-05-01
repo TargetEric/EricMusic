@@ -83,8 +83,12 @@ async def API_SONG(vid_id: str):
             async with session.get(song_url) as response:
                 if response.status == 200:
                     data = await response.json()
+                    print(f"API Response: {json.dumps(data, indent=4)}")
                     if data.get('status') == 'success':
                         download_url = data['download_link']
+                        if not download_url:
+                            print("Error: No download URL found in API response.")
+                            return None
                         download_folder = "downloads"
                         os.makedirs(download_folder, exist_ok=True)
                         file_name = download_url.split('/')[-1].split('?')[0]
