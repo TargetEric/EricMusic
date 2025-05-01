@@ -100,29 +100,28 @@ async def API_SONG(vid_id: str):
                                 print("Song Downloaded From API")
                                 return file_path
                             else:
-                                print(f"Failed to download the file. Status code: {file_response.status}")
+                                print(f"Failed to download the file. Status code: {file_response.status} {file_response}")
                 else:
                     print(f"Failed to retrieve data. Status code: {response.status}")
     except Exception as e:
         print(f"API failed, falling back to yt_dlp: {e}")
-    
-    try:
-        ydl_opts = {
-            "format": "bestaudio/best",
-            "outtmpl": f"downloads/{vid_id}.mp3",
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "quiet": True,
- "cookiefile": cookie_txt_file(), 
-            "no_warnings": True,
-        }
-        with yt_dlp.YoutubeDL(ydl_opts) as x:
-            info = x.extract_info(f"https://www.youtube.com/watch?v={vid_id}", download=True)
-            print(f"Downloaded from cookies")
-            return info['url']
-    except Exception as e:
-        print(f"yt_dlp fallback also failed: {e}")
-        return None
+        try:
+            ydl_opts = {
+                "format": "bestaudio/best",
+                "outtmpl": f"downloads/{vid_id}.mp3",
+                "geo_bypass": True,
+                "nocheckcertificate": True,
+                "quiet": True,
+                "cookiefile": cookie_txt_file(), 
+                "no_warnings": True,
+            }
+            with yt_dlp.YoutubeDL(ydl_opts) as x:
+                info = x.extract_info(f"https://www.youtube.com/watch?v={vid_id}", download=True)
+                print(f"Downloaded from cookies")
+                return info['url']
+        except Exception as e:
+            print(f"yt_dlp fallback also failed: {e}")
+            return None
 
 class YouTubeAPI:
     def __init__(self):
