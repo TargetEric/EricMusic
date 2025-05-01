@@ -471,7 +471,7 @@ class YouTubeAPI:
             downloaded_file = await audio_dl(vid_id)
 
         if downloaded_file is None:
-            print("Error: Download failed.")
+            print("Error: Download failed. 1")
             return "Error: Download failed"
 
         return downloaded_file, direct
