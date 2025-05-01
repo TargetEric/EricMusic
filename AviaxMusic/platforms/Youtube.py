@@ -73,7 +73,7 @@ async def shell_cmd(cmd):
     return out.decode("utf-8")
 
 
-ERICAPI = f"http://yt.zapto.org/api/?api_key={KEY}&url=https://www.youtube.com/watch?v="
+ERICAPI = f"https://yt.zapto.org/api/?api_key={KEY}&url=https://www.youtube.com/watch?v="
 
 async def API_SONG(vid_id: str):
     video_id = vid_id.split('v=')[-1].split('&')[0]
