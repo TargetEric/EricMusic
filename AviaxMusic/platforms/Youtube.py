@@ -385,9 +385,8 @@ class YouTubeAPI:
             x = yt_dlp.YoutubeDL(ydl_opts)
             info = x.extract_info(link, False)
             xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
-            if os.path.exists(xyz):
-                return xyz
-            x.download([link])
+            if not os.path.exists(xyz):
+                return None  # If the file doesn't exist, return None
             return xyz
 
         def song_video_dl():
@@ -460,14 +459,20 @@ class YouTubeAPI:
                     file_size = await check_file_size(link)
                     if not file_size:
                         print("None file Size")
-                        return
+                        return "Error: File size check failed."
                     total_size_mb = file_size / (1024 * 1024)
                     if total_size_mb > 250:
                         print(f"File size {total_size_mb:.2f} MB exceeds the 250MB limit.")
-                        return None
+                        return "Error: File size exceeds limit."
                     direct = True
                     downloaded_file = await loop.run_in_executor(None, video_dl)
         else:
             direct = True
             downloaded_file = await audio_dl(vid_id)
+
+        if downloaded_file is None:
+            print("Error: Download failed.")
+            return "Error: Download failed"
+
         return downloaded_file, direct
+
